@@ -22,22 +22,19 @@ RUN ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo UTC > /etc/timezone
 
 # docker container usually wont add that file which is required by some init scripts
 RUN echo "" >> /etc/sysconfig/network
-
-RUN usermod -u 1000 nginx
-RUN groupmod -g 1000 nginx
-
 RUN echo "upstream php-upstream { server php:9000; }" > /etc/nginx/conf.d/upstream.conf
 
-# default vhost conf from package installation
+# remove default vhost conf from package installation
 RUN rm -f /etc/nginx/conf.d/virtual.conf
 
 # cleanup
 RUN yum clean all && rm -rf /tmp/* /var/tmp/*
 
+# forward request and error logs to docker log collector
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log
+
 WORKDIR /var/www/html
-
 EXPOSE 80
-
 STOPSIGNAL SIGTERM
-
 CMD ["nginx"]
