@@ -6,7 +6,7 @@ MAINTAINER ljay
 # update amazon software repo
 RUN yum -y update && yum -y install shadow-utils
 
-# nginx 1.14.x
+# nginx
 # Check if really required to install following mods
 RUN yum install -y \
     nginx \

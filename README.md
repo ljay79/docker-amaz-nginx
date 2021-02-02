@@ -10,4 +10,6 @@ This repo creates a Docker image for NGINX running on Amazon Linux.
 
 Version | Git branch | Tag name
 --------| ---------- |---------
-1.14.1   | master    | latest
+nginx 1.18.0   | master    | latest
+nginx 1.18.0   | master    | 1.18.0
+nginx 1.14.1   | master    | 1.14.1
